@@ -5,7 +5,9 @@ namespace VincreaserLib
 {
     public enum VersionChangerTypes
     {
-        [Type(".NET","AssemblyInfo.cs")]
-        NetFramework,
+        [Type("assemblyInfo")]
+        AssemblyInfo,
+        [Type(".csproj")]
+        csproj,
     }
 }

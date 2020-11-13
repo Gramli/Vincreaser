@@ -3,7 +3,7 @@
 
 ## Commands
 * Commands: 
-	* 	-type (optional, actually supports only .net AssemblyInfo.cs files)
+	* 	-type (.csproj, assemblyInfo)
 	*   -increase
 		* *major number (example: -increase major 1)
 		* *minor number (example: -increase minor 1)

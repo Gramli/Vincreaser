@@ -5,12 +5,10 @@ namespace VincreaserLib.Attributes
     public class TypeAttribute : Attribute
     {
         public string Name { get; }
-        public string[] FileNames { get; }
 
-        public TypeAttribute(string name, params string[] fileNames)
+        public TypeAttribute(string name)
         {
             Name = name;
-            FileNames = fileNames;
         }
     }
 }
