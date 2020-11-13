@@ -1,25 +1,83 @@
-﻿namespace VincreaserLib
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace VincreaserLib
 {
     public class DirectoryBrowser : IDirectoryBrowser
     {
-        public string[] GetFilesByExtension(string sourceDirectory, string extension)
+        public IList<string> GetFilesByExtension(string sourceDirectory, string extension, IEnumerable<string> directoriesToExclude = null)
         {
-            throw new System.NotImplementedException();
+            var result = new List<string>();
+
+            foreach (var file in Directory.GetFiles(sourceDirectory))
+            {
+                if (Path.GetExtension(file) == extension)
+                {
+                    result.Add(file);
+                }
+            }
+
+            var subDirFiles = GetFilesInSubDirectories(sourceDirectory, extension, directoriesToExclude, GetFilesByExtension);
+            if (subDirFiles.Count > 0)
+            {
+                result.AddRange(subDirFiles);
+            }
+
+            return result;
         }
 
-        public string[] GetFilesByName(string sourceDirectory, string fileName)
+        public IList<string> GetFilesByName(string sourceDirectory, string fileName, IEnumerable<string> directoriesToExclude = null)
         {
-            throw new System.NotImplementedException();
+            var result = new List<string>();
+
+            foreach (var file in Directory.GetFiles(sourceDirectory))
+            {
+                if (Path.GetFileName(file) == fileName)
+                {
+                    result.Add(file);
+                }
+            }
+
+            var subDirFiles = GetFilesInSubDirectories(sourceDirectory, fileName, directoriesToExclude, GetFilesByName);
+            if(subDirFiles.Count > 0)
+            {
+                result.AddRange(subDirFiles);
+            }
+
+            return result;
         }
 
         public bool IsDirectory(string path)
         {
-            throw new System.NotImplementedException();
+            return Directory.Exists(path);
         }
 
         public bool IsFile(string path)
         {
-            throw new System.NotImplementedException();
+            return File.Exists(path);
+        }
+
+        private IList<string> GetFilesInSubDirectories(string sourceDirectory, string compare, IEnumerable<string> directoriesToExclude, Func<string, string, IEnumerable<string>, IList<string>> getFilesFunc)
+        {
+            var result = new List<string>();
+
+            foreach (var dir in Directory.GetDirectories(sourceDirectory))
+            {
+                if (directoriesToExclude != null && directoriesToExclude.Contains(Path.GetDirectoryName(dir)))
+                {
+                    continue;
+                }
+
+                var recursiveFiles = getFilesFunc(dir, compare, directoriesToExclude);
+                if (recursiveFiles != null && recursiveFiles.Count() > 0)
+                {
+                    result.AddRange(recursiveFiles);
+                }
+            }
+
+            return result;
         }
     }
 }

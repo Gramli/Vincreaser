@@ -1,10 +1,12 @@
-﻿namespace VincreaserLib
+﻿using System.Collections.Generic;
+
+namespace VincreaserLib
 {
     public interface IDirectoryBrowser
     {
         bool IsFile(string path);
         bool IsDirectory(string path);
-        string[] GetFilesByName(string sourceDirectory, string fileName);
-        string[] GetFilesByExtension(string sourceDirectory, string extension);
+        IList<string> GetFilesByName(string sourceDirectory, string fileName, IEnumerable<string> directoriesToExclude = null);
+        IList<string> GetFilesByExtension(string sourceDirectory, string extension, IEnumerable<string> directoriesToExclude = null);
     }
 }
