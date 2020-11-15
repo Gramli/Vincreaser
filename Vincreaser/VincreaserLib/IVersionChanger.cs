@@ -7,7 +7,8 @@
         void SetVersion(string version, string[] files);
         void IncreaseMajor(int i, string[] files);
         void IncreaseMinor(int i, string[] files);
-        void IncreasePatch(int i, string[] files);
+        void IncreaseBuild(int i, string[] files);
+        void IncreaseRevision(int i, string[] files);
 
     }
 }

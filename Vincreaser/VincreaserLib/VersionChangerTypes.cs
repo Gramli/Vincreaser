@@ -5,9 +5,11 @@ namespace VincreaserLib
 {
     public enum VersionChangerTypes
     {
-        [Type("assemblyInfo")]
-        AssemblyInfo,
+        [Type("assemblyInfo.cs")]
+        assemblyInfocs,
         [Type(".csproj")]
         csproj,
+        [Type("version.go")]
+        versiongo,
     }
 }

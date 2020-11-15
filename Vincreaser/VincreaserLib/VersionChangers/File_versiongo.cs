@@ -3,23 +3,23 @@ using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class XML_csproj : IVersionChanger
+    public class File_versiongo : IVersionChanger
     {
-        private readonly string _versionFileExtension = ".csproj";
+        private readonly string _versionFile = "version.go";
 
-        public VersionChangerTypes Type => VersionChangerTypes.csproj;
+        public VersionChangerTypes Type => VersionChangerTypes.versiongo;
 
         private readonly IDirectoryBrowser _directoryBrowser;
-        public XML_csproj(IDirectoryBrowser directoryBrowser)
+        public File_versiongo(IDirectoryBrowser directoryBrowser)
         {
             _directoryBrowser = directoryBrowser;
         }
-        public string[] GetVersionFiles(string path, string[] exclude = null)
+        public string[] GetVersionFiles(string path, string[] excludeDirs = null)
         {
-            return _directoryBrowser.GetFilesByExtension(path, _versionFileExtension, exclude).ToArray();
+            return _directoryBrowser.GetFilesByName(path, _versionFile, excludeDirs).ToArray();
         }
 
-        public void SetVersion(string version, string[] files)
+        public void IncreaseBuild(int i, string[] files)
         {
             throw new NotImplementedException();
         }
@@ -34,12 +34,12 @@ namespace VincreaserLib.VersionChangers
             throw new NotImplementedException();
         }
 
-        public void IncreaseBuild(int i, string[] files)
+        public void IncreaseRevision(int i, string[] files)
         {
             throw new NotImplementedException();
         }
 
-        public void IncreaseRevision(int i, string[] files)
+        public void SetVersion(string version, string[] files)
         {
             throw new NotImplementedException();
         }
