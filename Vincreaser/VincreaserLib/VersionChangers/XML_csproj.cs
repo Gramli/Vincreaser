@@ -1,11 +1,17 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class XML_csproj : IVersionChanger
+    public class XML_csproj : VersionChangerBase
     {
         private readonly string _versionFileExtension = ".csproj";
+
+        private readonly string _propertyGroupElementName = "PropertyGroup";
+
+        private readonly string _assemblyVersionElementName = "AssemblyVersion";
 
         public VersionChangerTypes Type => VersionChangerTypes.csproj;
 
@@ -14,34 +20,26 @@ namespace VincreaserLib.VersionChangers
         {
             _directoryBrowser = directoryBrowser;
         }
-        public string[] GetVersionFiles(string path, string[] exclude = null)
+        public override string[] GetVersionFiles(string path, string[] exclude = null)
         {
             return _directoryBrowser.GetFilesByExtension(path, _versionFileExtension, exclude).ToArray();
         }
 
-        public void SetVersion(string version, string[] files)
+        protected override string GetAssemblyVersion(string file)
         {
-            throw new NotImplementedException();
+            var projectElement = XElement.Load(file);
+            var propertyGroupElement = projectElement.Element(_propertyGroupElementName);
+            var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
+            return assemblyVersionElement.Value;
         }
 
-        public void IncreaseMajor(int i, string[] files)
+        protected override void WriteAssemblyVersion(string version, string file)
         {
-            throw new NotImplementedException();
-        }
-
-        public void IncreaseMinor(int i, string[] files)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void IncreaseBuild(int i, string[] files)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void IncreaseRevision(int i, string[] files)
-        {
-            throw new NotImplementedException();
+            var projectElement = XElement.Load(file);
+            var propertyGroupElement = projectElement.Element(_propertyGroupElementName);
+            var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
+            assemblyVersionElement.Value = version;
+            File.WriteAllText(file, projectElement.ToString());
         }
     }
 }
