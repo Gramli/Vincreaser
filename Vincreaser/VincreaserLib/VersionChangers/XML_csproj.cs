@@ -13,7 +13,7 @@ namespace VincreaserLib.VersionChangers
 
         private readonly string _assemblyVersionElementName = "AssemblyVersion";
 
-        public VersionChangerTypes Type => VersionChangerTypes.csproj;
+        public override VersionChangerTypes Type => VersionChangerTypes.csproj;
 
         private readonly IDirectoryBrowser _directoryBrowser;
         public XML_csproj(IDirectoryBrowser directoryBrowser)
