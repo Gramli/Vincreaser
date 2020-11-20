@@ -1,47 +1,58 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class File_versiongo : IVersionChanger
+    public class File_versiongo : VersionChangerBase
     {
         private readonly string _versionFile = "version.go";
 
-        public VersionChangerTypes Type => VersionChangerTypes.versiongo;
+        public override VersionChangerTypes Type => VersionChangerTypes.versiongo;
 
         private readonly IDirectoryBrowser _directoryBrowser;
         public File_versiongo(IDirectoryBrowser directoryBrowser)
         {
             _directoryBrowser = directoryBrowser;
         }
-        public string[] GetVersionFiles(string path, string[] excludeDirs = null)
+        public override string[] GetVersionFiles(string path, string[] excludeDirs = null)
         {
             return _directoryBrowser.GetFilesByName(path, _versionFile, excludeDirs).ToArray();
         }
 
-        public void IncreaseBuild(int i, string[] files)
+        protected override void WriteAssemblyVersion(string version, string path)
         {
             throw new NotImplementedException();
         }
 
-        public void IncreaseMajor(int i, string[] files)
+        protected override string GetAssemblyVersion(string path)
         {
-            throw new NotImplementedException();
+            var result = string.Empty;
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var textReader = new StreamReader(fileStream);
+            while (true)
+            {
+                var line = textReader.ReadLine();
+                if (line is null)
+                {
+                    break;
+                }
+
+                if (line.Contains("version"))
+                {
+                    result = ExtractVersion(line);
+                    break;
+                }
+            }
+
+            return result;
+
         }
 
-        public void IncreaseMinor(int i, string[] files)
+        private string ExtractVersion(string line)
         {
-            throw new NotImplementedException();
-        }
-
-        public void IncreaseRevision(int i, string[] files)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetVersion(string version, string[] files)
-        {
-            throw new NotImplementedException();
+            var indexOfEquation = line.IndexOf("=");
+            return line.Substring(indexOfEquation, line.Length - indexOfEquation);
         }
     }
 }
