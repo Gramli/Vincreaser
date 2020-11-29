@@ -5,11 +5,12 @@ using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class File_assemblyInfocs : VersionChangerBase
+    //init in folder - look at inicialization for Assembly info
+    public class File_assemblyInfocs : IVersionFile
     {
-        private readonly string _versionFile = "AssemblyInfo.cs";
+        public VersionFileType Type => VersionFileType.assemblyInfocs;
 
-        public override VersionChangerTypes Type => VersionChangerTypes.assemblyInfocs;
+        private readonly string _versionFile = "AssemblyInfo.cs";
 
         private readonly IDirectoryBrowser _directoryBrowser;
         public File_assemblyInfocs(IDirectoryBrowser directoryBrowser)
@@ -17,12 +18,12 @@ namespace VincreaserLib.VersionChangers
             _directoryBrowser = directoryBrowser;
         }
 
-        public override string[] GetVersionFiles(string path, string[] exclude = null)
+        public string[] GetVersionFiles(string path, string[] exclude = null)
         {
             return _directoryBrowser.GetFilesByName(path, _versionFile, exclude).ToArray();
         }
 
-        protected override void WriteAssemblyVersion(string version, string path)
+        public void WriteAssemblyVersion(string version, string path)
         {
             var lines = new List<string>();
             using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.Read);
@@ -54,9 +55,7 @@ namespace VincreaserLib.VersionChangers
             File.WriteAllLines(path, lines);
         }
 
-
-
-        protected override string GetAssemblyVersion(string path)
+        public string GetAssemblyVersion(string path)
         {
             var result = string.Empty;
             using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -79,12 +78,17 @@ namespace VincreaserLib.VersionChangers
             return result;
         }
 
-        private string ExtractVersion(string line)
+        public string ExtractVersion(string line)
         {
             var leftBracketIndex = line.IndexOf(")");
             var rightBracketIndex = line.IndexOf(")");
 
             return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex);
+        }
+
+        public void Init(string directory)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -2,13 +2,11 @@
 {
     interface IVersionChanger
     {
-        VersionChangerTypes Type { get; }
-        string[] GetVersionFiles(string path, string[] excludeDirs = null);
-        void SetVersion(string version, string[] files);
-        void IncreaseMajor(int i, string[] files);
-        void IncreaseMinor(int i, string[] files);
-        void IncreaseBuild(int i, string[] files);
-        void IncreaseRevision(int i, string[] files);
-
+        void SetVersion(string version, IVersionFile versionFile, string[] files);
+        void IncreaseMajor(IVersionFile versionFile, string[] files);
+        void IncreaseMinor( IVersionFile versionFile, string[] files);
+        void IncreaseBuild(IVersionFile versionFile, string[] files);
+        void IncreaseRevision(IVersionFile versionFile, string[] files);
+        void Init(IVersionFile versionFile, string[] files);
     }
 }

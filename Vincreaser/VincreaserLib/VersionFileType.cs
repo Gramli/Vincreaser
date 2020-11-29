@@ -3,7 +3,7 @@ using VincreaserLib.Attributes;
 
 namespace VincreaserLib
 {
-    public enum VersionChangerTypes
+    public enum VersionFileType
     {
         [Type("assemblyInfo.cs")]
         assemblyInfocs,
