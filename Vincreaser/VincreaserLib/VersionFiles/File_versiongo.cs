@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -86,9 +87,37 @@ namespace VincreaserLib.VersionChangers
             return line.Substring(indexOfEquation, line.Length - indexOfEquation);
         }
 
-        public void Init(string directory)
+        public void Init(string name, string directory)
         {
-            throw new NotImplementedException();
+            var path = Path.Combine(directory, _versionFile);
+            using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using var streamWriter = new StreamWriter(fileStream);
+            streamWriter.WriteLine("package main");
+            streamWriter.WriteLine();
+            streamWriter.WriteLine($"var version = \"1.0.0.0\"");
+            streamWriter.WriteLine($"var goVersion = \"{GetGolangVersion()}\"");
+            streamWriter.WriteLine($"var changeDate = \"{DateTime.Now}\"");
+        }
+
+        private string GetGolangVersion()
+        {
+            var result = string.Empty;
+
+            var process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = "cmd.exe",
+                    UseShellExecute = false,
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                    Arguments = "go version",
+                }
+            };
+
+            process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => { result += e.Data; };
+
+            return result;
         }
     }
 }

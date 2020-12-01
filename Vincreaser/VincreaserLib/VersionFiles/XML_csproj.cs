@@ -29,6 +29,7 @@ namespace VincreaserLib.VersionChangers
 
         public string GetAssemblyVersion(string file)
         {
+            //CHECK NULL
             var projectElement = XElement.Load(file);
             var propertyGroupElement = projectElement.Element(_propertyGroupElementName);
             var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
@@ -48,10 +49,13 @@ namespace VincreaserLib.VersionChangers
         {
             return elementValue;
         }
-
-        public void Init(string directory)
+        public void Init(string name, string directory)
         {
-            throw new NotImplementedException();
+            var file = _directoryBrowser.GetFilesByExtension(directory, _versionFileExtension, null)
+                .Single(item=> Path.GetFileNameWithoutExtension(item).Equals(name));
+
+            //TODO DAN
+            WriteAssemblyVersion("1.0.0.0", file);
         }
     }
 }

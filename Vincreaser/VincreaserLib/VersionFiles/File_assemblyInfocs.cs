@@ -36,7 +36,7 @@ namespace VincreaserLib.VersionChangers
                     break;
                 }
 
-                if(line.Contains("AssemblyVersion"))
+                if (line.Contains("AssemblyVersion"))
                 {
                     var oldVersion = ExtractVersion(line);
                     line = line.Replace(oldVersion, version);
@@ -47,7 +47,7 @@ namespace VincreaserLib.VersionChangers
                 lines.Add(line);
             }
 
-            if(lines.Count == 0)
+            if (lines.Count == 0)
             {
                 throw new IOException("File is empty, can't read AssemblyVersion");
             }
@@ -86,9 +86,13 @@ namespace VincreaserLib.VersionChangers
             return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex);
         }
 
-        public void Init(string directory)
+        public void Init(string name, string directory)
         {
-            throw new NotImplementedException();
+            var path = Path.Combine(directory, _versionFile);
+            using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+            using var streamWriter = new StreamWriter(fileStream);
+            streamWriter.WriteLine($"[assembly: AssemblyTitle(\"{name}\")]");
+            streamWriter.WriteLine($"[assembly: AssemblyVersion(\"1.0.0.0\")]");
         }
     }
 }
