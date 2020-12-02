@@ -6,9 +6,6 @@ using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    //init in folder
-    // init - with golang version
-    // init - add last change date
     public class File_versiongo : IVersionFile
     {
         private readonly string _versionFile = "version.go";

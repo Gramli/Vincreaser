@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    //init in folder - look at inicialization for Assembly info
     public class File_assemblyInfocs : IVersionFile
     {
         public VersionFileType Type => VersionFileType.assemblyInfocs;

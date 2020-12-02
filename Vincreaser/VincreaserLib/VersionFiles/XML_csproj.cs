@@ -5,8 +5,6 @@ using System.Xml.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    //init in every finded csproj
-    //init in folder
     public class XML_csproj : IVersionFile
     {
         public VersionFileType Type => VersionFileType.csproj;
@@ -29,10 +27,15 @@ namespace VincreaserLib.VersionChangers
 
         public string GetAssemblyVersion(string file)
         {
-            //CHECK NULL
             var projectElement = XElement.Load(file);
-            var propertyGroupElement = projectElement.Element(_propertyGroupElementName);
-            var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
+            var propertyGroupElement = projectElement?.Element(_propertyGroupElementName);
+            var assemblyVersionElement = propertyGroupElement?.Element(_assemblyVersionElementName);
+
+            if(assemblyVersionElement is null)
+            {
+                throw new FileLoadException($"Can't load {_assemblyVersionElementName} element.");
+            }
+
             return assemblyVersionElement.Value;
         }
 
@@ -54,8 +57,28 @@ namespace VincreaserLib.VersionChangers
             var file = _directoryBrowser.GetFilesByExtension(directory, _versionFileExtension, null)
                 .Single(item=> Path.GetFileNameWithoutExtension(item).Equals(name));
 
-            //TODO DAN
-            WriteAssemblyVersion("1.0.0.0", file);
+            var projectElement = XElement.Load(file);
+            if(projectElement is null)
+            {
+                throw new FileLoadException($"Can't load Project element.");
+            }
+
+            var propertyGroupElement = projectElement.Element(_propertyGroupElementName);
+            if(propertyGroupElement is null)
+            {
+                propertyGroupElement = new XElement(_propertyGroupElementName);
+                propertyGroupElement.Add(new XElement(_assemblyVersionElementName));
+                projectElement.Add(propertyGroupElement);
+            }
+
+            var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
+            if(assemblyVersionElement is null)
+            {
+                propertyGroupElement.Add(new XElement(_assemblyVersionElementName));
+            }
+
+            assemblyVersionElement.Value = "1.0.0.0";
+            File.WriteAllText(file, projectElement.ToString());
         }
     }
 }
