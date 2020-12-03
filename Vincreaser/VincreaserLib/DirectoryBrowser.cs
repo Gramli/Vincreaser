@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace VincreaserLib
 {
-    public class DirectoryBrowser : IDirectoryBrowser
+    internal class DirectoryBrowser : IDirectoryBrowser
     {
         public IList<string> GetFilesByExtension(string sourceDirectory, string extension, IEnumerable<string> directoriesToExclude = null)
         {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VincreaserLib.VincreaserCommands
+﻿namespace VincreaserLib.VincreaserCommands
 {
     internal interface IExcludeCommand : IVincreaserCommand
     {

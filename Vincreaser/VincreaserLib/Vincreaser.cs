@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VincreaserLib.Exceptions;
 using VincreaserLib.VincreaserCommands;
 
 namespace VincreaserLib
@@ -9,37 +10,42 @@ namespace VincreaserLib
     {
         private readonly IVincreaserCommandsManager _commandsManager;
 
-        public Vincreaser()
+        public Vincreaser(IVincreaserCommandsManager commandsManager)
         {
+            _commandsManager = commandsManager;
         }
 
-
-        //COmmands dictionary with priorit - maybe class with interface
-        //add logic for csproj to init all in folder
-        public void Run(string[] args)
+        public void Run(params string[] args)
         {
-            var actionCommands = new List<IVincreaserCommand>();
-
-            var commands = args[0].Split("-");
-            foreach (var command in commands)
+            if (!args.Any() || args is null)
             {
-                var vCommand = _commandsManager.GetCommand(command);
-                actionCommands.Add(vCommand);
+                throw new ArgumentNullException("Run arguments are empty or null");
             }
 
-            //get path
-            var pathCommand = (IPathCommand)actionCommands.SingleOrDefault(i => i is IPathCommand) ?? throw new Exception("Can't find -path argument");
-            var path = pathCommand.GetPath();
+            foreach (var arg in args)
+            {
+                var actionCommands = new List<IVincreaserCommand>();
 
-            var typeCommand = (ITypeCommand)actionCommands.SingleOrDefault(i => i is ITypeCommand) ?? throw new Exception("Can't find -type argument");
-            var versionFile = typeCommand.GetVersionFile();
+                var commands = arg.Split("-");
+                foreach (var command in commands)
+                {
+                    var vCommand = _commandsManager.GetCommand(command);
+                    actionCommands.Add(vCommand);
+                }
 
-            var excludeCommand = (IExcludeCommand) actionCommands.FirstOrDefault(i => i is IExcludeCommand);
-            var exclude = excludeCommand?.GetExclude();
+                var pathCommand = (IPathCommand)actionCommands.SingleOrDefault(i => i is IPathCommand) ?? throw new UnknownCommand("Can't find mandatory command -path.");
+                var path = pathCommand.GetPath();
 
-            var actionCommand = (ActionCommand)actionCommands.SingleOrDefault(i => i is ActionCommand) ?? throw new Exception("Can't find -increase or -set argument");
+                var typeCommand = (ITypeCommand)actionCommands.SingleOrDefault(i => i is ITypeCommand) ?? throw new UnknownCommand("Can't find mandatory command -type");
+                var versionFile = typeCommand.GetVersionFile();
 
-            actionCommand.Run(versionFile,path,exclude);
+                var excludeCommand = (IExcludeCommand)actionCommands.FirstOrDefault(i => i is IExcludeCommand);
+                var exclude = excludeCommand?.GetExclude();
+
+                var actionCommand = (IActionCommand)actionCommands.SingleOrDefault(i => i is IActionCommand) ?? throw new UnknownCommand("Can't find mandatory command -increase or -set");
+
+                actionCommand.Run(versionFile, path, exclude);
+            }
         }
     }
 }

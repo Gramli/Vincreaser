@@ -2,7 +2,7 @@
 
 namespace VincreaserLib.VersionChangers
 {
-    public class VersionChanger : IVersionChanger
+    internal class VersionChanger : IVersionChanger
     {
         public void IncreaseMajor(IVersionFile versionFile, string[] files)
         {

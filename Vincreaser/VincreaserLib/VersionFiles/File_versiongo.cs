@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class File_versiongo : IVersionFile
+    internal class File_versiongo : IVersionFile
     {
         private readonly string _versionFile = "version.go";
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VincreaserLib
+﻿namespace VincreaserLib
 {
-    interface IVincreaserCommandsManager
+    public interface IVincreaserCommandsManager
     {
         IVincreaserCommand GetCommand(string command);
     }

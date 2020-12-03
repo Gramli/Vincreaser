@@ -1,14 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VincreaserLib.VincreaserCommands
 {
-    class TypeCommand : ITypeCommand
+    internal class TypeCommand : ITypeCommand
     {
         public string Name => "-type";
 
         public IVersionFile GetVersionFile()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Parse(string command)
         {
             throw new NotImplementedException();
         }

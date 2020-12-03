@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace VincreaserLib.VincreaserCommands
 {
-    class IncreaseActionCommand : ActionCommand
+    internal class IncreaseActionCommand : IIncreaseActionCommand
     {
         public string Name => "-increase";
 
@@ -13,7 +11,7 @@ namespace VincreaserLib.VincreaserCommands
             Parse(command);
         }
 
-        private void Parse(string command)
+        public void Parse(string command)
         {
             throw new NotImplementedException();
         }

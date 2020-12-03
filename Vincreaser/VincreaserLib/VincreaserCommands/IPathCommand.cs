@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace VincreaserLib.VincreaserCommands
+﻿namespace VincreaserLib.VincreaserCommands
 {
-    interface IPathCommand : IVincreaserCommand
+    internal interface IPathCommand : IVincreaserCommand
     {
         string GetPath();
     }

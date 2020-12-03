@@ -1,6 +1,6 @@
 ﻿namespace VincreaserLib
 {
-    interface IVersionChanger
+    public interface IVersionChanger
     {
         void SetVersion(string version, IVersionFile versionFile, string[] files);
         void IncreaseMajor(IVersionFile versionFile, string[] files);

@@ -1,9 +1,6 @@
-﻿using System;
-
-namespace VincreaserLib.VincreaserCommands
+﻿namespace VincreaserLib.VincreaserCommands
 {
-    internal interface ActionCommand : IVincreaserCommand
+    internal interface IIncreaseActionCommand : IActionCommand
     {
-        void Run(IVersionFile versionFile, string path, string[] exclude);
     }
 }

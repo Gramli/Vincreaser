@@ -1,11 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace VincreaserLib.VersionChangers
 {
-    public class XML_csproj : IVersionFile
+    internal class XML_csproj : IVersionFile
     {
         public VersionFileType Type => VersionFileType.csproj;
 
