@@ -6,6 +6,6 @@ namespace VincreaserLib.VincreaserCommands
 {
     interface ITypeCommand : IVincreaserCommand
     {
-        Func<string, IVersionFile> GetVersionFile();
+        IVersionFile GetVersionFile();
     }
 }

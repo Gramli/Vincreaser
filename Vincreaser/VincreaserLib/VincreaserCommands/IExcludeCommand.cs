@@ -4,6 +4,6 @@ namespace VincreaserLib.VincreaserCommands
 {
     internal interface IExcludeCommand : IVincreaserCommand
     {
-        Func<string, string[]> GetExclude();
+        string[] GetExclude();
     }
 }

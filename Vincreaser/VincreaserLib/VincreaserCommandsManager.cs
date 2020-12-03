@@ -15,7 +15,7 @@ namespace VincreaserLib
 
         public IVincreaserCommand GetCommand(string command)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
