@@ -9,18 +9,10 @@ namespace VincreaserLib
     {
         public IList<string> GetFilesByExtension(string sourceDirectory, string extension, IEnumerable<string> directoriesToExclude = null)
         {
-            var result = new List<string>();
-
-            foreach (var file in Directory.GetFiles(sourceDirectory))
-            {
-                if (Path.GetExtension(file) == extension)
-                {
-                    result.Add(file);
-                }
-            }
+            var result = Directory.GetFiles(sourceDirectory).Where(file => Path.GetExtension(file) == extension).ToList();
 
             var subDirFiles = GetFilesInSubDirectories(sourceDirectory, extension, directoriesToExclude, GetFilesByExtension);
-            if (subDirFiles.Count > 0)
+            if (subDirFiles.Any())
             {
                 result.AddRange(subDirFiles);
             }
@@ -71,7 +63,7 @@ namespace VincreaserLib
                 }
 
                 var recursiveFiles = getFilesFunc(dir, compare, directoriesToExclude);
-                if (recursiveFiles != null && recursiveFiles.Count() > 0)
+                if (recursiveFiles != null && recursiveFiles.Any())
                 {
                     result.AddRange(recursiveFiles);
                 }

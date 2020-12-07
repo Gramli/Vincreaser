@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace VincreaserLib.VersionChangers
+namespace VincreaserLib.VersionFiles
 {
     internal class File_versiongo : IVersionFile
     {
@@ -80,7 +80,7 @@ namespace VincreaserLib.VersionChangers
 
         public string ExtractVersion(string line)
         {
-            var indexOfEquation = line.IndexOf("=");
+            var indexOfEquation = line.IndexOf("=", StringComparison.Ordinal);
             return line.Substring(indexOfEquation, line.Length - indexOfEquation);
         }
 

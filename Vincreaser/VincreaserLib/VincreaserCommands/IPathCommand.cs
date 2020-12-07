@@ -2,7 +2,7 @@
 {
     internal interface IPathCommand : IVincreaserCommand
     {
-        string GetPath();
+        string[] GetPaths();
     }
 
 }

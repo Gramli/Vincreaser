@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using VincreaserLib.Exceptions;
 using VincreaserLib.VincreaserCommands;
@@ -24,17 +23,11 @@ namespace VincreaserLib
 
             foreach (var arg in args)
             {
-                var actionCommands = new List<IVincreaserCommand>();
-
                 var commands = arg.Split("-");
-                foreach (var command in commands)
-                {
-                    var vCommand = _commandsManager.GetCommand(command);
-                    actionCommands.Add(vCommand);
-                }
+                var actionCommands = commands.Select(command => _commandsManager.GetCommand(command)).ToList();
 
                 var pathCommand = (IPathCommand)actionCommands.SingleOrDefault(i => i is IPathCommand) ?? throw new UnknownCommand("Can't find mandatory command -path.");
-                var path = pathCommand.GetPath();
+                var paths = pathCommand.GetPaths();
 
                 var typeCommand = (ITypeCommand)actionCommands.SingleOrDefault(i => i is ITypeCommand) ?? throw new UnknownCommand("Can't find mandatory command -type");
                 var versionFile = typeCommand.GetVersionFile();
@@ -44,7 +37,13 @@ namespace VincreaserLib
 
                 var actionCommand = (IActionCommand)actionCommands.SingleOrDefault(i => i is IActionCommand) ?? throw new UnknownCommand("Can't find mandatory command -increase or -set");
 
-                actionCommand.Run(versionFile, path, exclude);
+                foreach (var path in paths)
+                {
+                    if (exclude?.Contains(path) ?? true)
+                    {
+                        actionCommand.Run(versionFile, path);
+                    }
+                }
             }
         }
     }

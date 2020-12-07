@@ -11,7 +11,7 @@ namespace VincreaserLib.VincreaserCommands
             throw new NotImplementedException();
         }
 
-        public string GetPath()
+        public string[] GetPaths()
         {
             throw new NotImplementedException();
         }

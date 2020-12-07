@@ -2,6 +2,6 @@
 {
     internal interface IActionCommand : IVincreaserCommand
     {
-        void Run(IVersionFile versionFile, string path, string[] exclude);
+        void Run(IVersionFile versionFile, string filePath);
     }
 }

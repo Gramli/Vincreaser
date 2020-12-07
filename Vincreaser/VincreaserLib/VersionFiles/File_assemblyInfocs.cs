@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace VincreaserLib.VersionChangers
+namespace VincreaserLib.VersionFiles
 {
     internal class File_assemblyInfocs : IVersionFile
     {
@@ -79,8 +79,8 @@ namespace VincreaserLib.VersionChangers
 
         public string ExtractVersion(string line)
         {
-            var leftBracketIndex = line.IndexOf(")");
-            var rightBracketIndex = line.IndexOf(")");
+            var leftBracketIndex = line.IndexOf(")", StringComparison.Ordinal);
+            var rightBracketIndex = line.IndexOf(")", StringComparison.Ordinal);
 
             return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex);
         }

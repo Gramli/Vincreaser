@@ -38,7 +38,12 @@ namespace VincreaserLib
 
         public IVincreaserCommand GetCommand(string args)
         {
-            var indexOfFirstSpace = args.IndexOf(" ");
+            if (args is null)
+            {
+                throw new UnknownCommand($"Can't retrieve command from null args.");
+            }
+
+            var indexOfFirstSpace = args.IndexOf(" ", StringComparison.Ordinal);
             var name = args.Substring(0, indexOfFirstSpace);
             var commandArgs = args.Substring(indexOfFirstSpace, args.Length);
             var commandInitFunc = _commandsMap[name] ?? throw new UnknownCommand($"Uknown command name {name}.");

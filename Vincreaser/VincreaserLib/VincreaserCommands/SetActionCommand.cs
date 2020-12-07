@@ -1,4 +1,4 @@
-﻿using System;
+﻿using VincreaserLib.Exceptions;
 
 namespace VincreaserLib.VincreaserCommands
 {
@@ -6,19 +6,31 @@ namespace VincreaserLib.VincreaserCommands
     {
         public string Name => "-set";
 
-        public SetActionCommand(string command)
+        private string _version;
+
+        private readonly IVersionChanger _versionChanger;
+
+        public SetActionCommand(IVersionChanger versionChanger)
         {
-            Parse(command);
+            _versionChanger = versionChanger;
         }
 
         public void Parse(string command)
         {
-            throw new NotImplementedException();
+            var setSplit = command.Split(" ");
+
+            if (setSplit.Length != 2)
+            {
+                throw new UnknownCommand($"Something missing in {Name} command.");
+            }
+
+            _version = setSplit[1];
+
         }
 
-        public void Run(IVersionFile versionFile, string path, string[] exclude)
+        public void Run(IVersionFile versionFile, string path)
         {
-            throw new NotImplementedException();
+            _versionChanger.SetVersion(_version, versionFile, path);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 
-namespace VincreaserLib.VersionChangers
+namespace VincreaserLib.VersionFiles
 {
     internal class XML_csproj : IVersionFile
     {

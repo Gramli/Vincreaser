@@ -1,4 +1,4 @@
-﻿using System;
+﻿using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VincreaserCommands
 {
@@ -6,14 +6,17 @@ namespace VincreaserLib.VincreaserCommands
     {
         public string Name => "-exclude";
 
+        private string[] _itemsToExclude;
+
         public void Parse(string command)
         {
-            throw new NotImplementedException();
+            var excludeItems = command.SubStringBetween('[', ']');
+            _itemsToExclude = excludeItems.Split(',');
         }
 
         public string[] GetExclude()
         {
-            throw new NotImplementedException();
+            return _itemsToExclude;
         }
     }
 }

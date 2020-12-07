@@ -16,7 +16,7 @@ namespace VincreaserApp
             using var scope = vincreaserContainer.BeginLifetimeScope();
             var vincreaser = scope.Resolve<IVincreaser>();
 
-            if (!args.Any() || args is null)
+            if (args is null || !args.Any())
             {
                 while(true)
                 {

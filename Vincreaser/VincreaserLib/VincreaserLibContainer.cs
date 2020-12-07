@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using VincreaserLib.VersionChangers;
+using VincreaserLib.VersionFiles;
 using VincreaserLib.VincreaserCommands;
 
 namespace VincreaserLib
