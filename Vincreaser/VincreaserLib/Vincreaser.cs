@@ -18,19 +18,20 @@ namespace VincreaserLib
         {
             if (!args.Any() || args is null)
             {
-                throw new ArgumentNullException("Run arguments are empty or null");
+                throw new UnknownCommand("Run arguments are empty or null");
             }
 
             foreach (var arg in args)
             {
-                var commands = arg.Split("-");
-                var actionCommands = commands.Select(command => _commandsManager.GetCommand(command)).ToList();
+                var commands = arg.Split("-").Where(i => !string.IsNullOrEmpty(i));
 
-                var pathCommand = (IPathCommand)actionCommands.SingleOrDefault(i => i is IPathCommand) ?? throw new UnknownCommand("Can't find mandatory command -path.");
-                var paths = pathCommand.GetPaths();
+                var actionCommands = commands.Select(command => _commandsManager.GetCommand(command)).ToList();
 
                 var typeCommand = (ITypeCommand)actionCommands.SingleOrDefault(i => i is ITypeCommand) ?? throw new UnknownCommand("Can't find mandatory command -type");
                 var versionFile = typeCommand.GetVersionFile();
+
+                var pathCommand = (IPathCommand)actionCommands.SingleOrDefault(i => i is IPathCommand) ?? throw new UnknownCommand("Can't find mandatory command -path.");
+                var paths = pathCommand.GetPaths(versionFile);
 
                 var excludeCommand = (IExcludeCommand)actionCommands.FirstOrDefault(i => i is IExcludeCommand);
                 var exclude = excludeCommand?.GetExclude();

@@ -18,14 +18,14 @@ namespace VincreaserApp
 
             if (args is null || !args.Any())
             {
-                while(true)
+                while (true)
                 {
                     var line = Console.ReadLine();
-                    if(endingCommands.Any(end => end == line))
+                    if (endingCommands.Any(end => end == line))
                     {
                         return;
                     }
-                    vincreaser.Run(args);
+                    vincreaser.Run(new[] { line });
 
                 }
             }

@@ -17,9 +17,9 @@ namespace VincreaserLib.VersionFiles
             _directoryBrowser = directoryBrowser;
         }
 
-        public string[] GetVersionFiles(string path, string[] exclude = null)
+        public string[] GetVersionFiles(string path)
         {
-            return _directoryBrowser.GetFilesByName(path, _versionFile, exclude).ToArray();
+            return _directoryBrowser.GetFilesByName(path, _versionFile).ToArray();
         }
 
         public void WriteAssemblyVersion(string version, string path)

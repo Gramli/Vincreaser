@@ -1,4 +1,4 @@
-﻿using System;
+﻿using VincreaserLib.Exceptions;
 
 namespace VincreaserLib.VincreaserCommands
 {
@@ -6,14 +6,35 @@ namespace VincreaserLib.VincreaserCommands
     {
         public string Name => "-path";
 
-        public void Parse(string command)
+        private string _path;
+
+        private readonly IDirectoryBrowser _directoryBrowser;
+
+        public PathCommand(IDirectoryBrowser directoryBrowser)
         {
-            throw new NotImplementedException();
+            _directoryBrowser = directoryBrowser;
         }
 
-        public string[] GetPaths()
+        public void Parse(string command)
         {
-            throw new NotImplementedException();
+            var setSplit = command.Split(" ");
+
+            if (setSplit.Length != 2)
+            {
+                throw new PathException($"Something missing in {Name} command.");
+            }
+
+            _path = setSplit[1];
+        }
+
+        public string[] GetPaths(IVersionFile versionFile)
+        {
+            if (_directoryBrowser.IsDirectory(_path))
+                return versionFile.GetVersionFiles(_path);
+            if (_directoryBrowser.IsFile(_path))
+                return new[] { _path };
+
+            throw new PathException($"Can't recognize path: {_path}");
         }
     }
 }

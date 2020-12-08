@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VincreaserApp", "VincreaserApp\VincreaserApp.csproj", "{AB9911CE-2527-459C-9279-5F0230F3C3AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VincreaserLib", "VincreaserLib\VincreaserLib.csproj", "{2921A177-94BB-4867-A439-30AB0EC468A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VincreaserLib", "VincreaserLib\VincreaserLib.csproj", "{2921A177-94BB-4867-A439-30AB0EC468A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vincreaser.NUnitTests", "Vincreaser.NUnitTests\Vincreaser.NUnitTests.csproj", "{DF4DD045-C3E5-4AA8-8369-D5CA5DC04473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{2921A177-94BB-4867-A439-30AB0EC468A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2921A177-94BB-4867-A439-30AB0EC468A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2921A177-94BB-4867-A439-30AB0EC468A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4DD045-C3E5-4AA8-8369-D5CA5DC04473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4DD045-C3E5-4AA8-8369-D5CA5DC04473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4DD045-C3E5-4AA8-8369-D5CA5DC04473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4DD045-C3E5-4AA8-8369-D5CA5DC04473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 {
     internal interface IPathCommand : IVincreaserCommand
     {
-        string[] GetPaths();
+        string[] GetPaths(IVersionFile versionFile);
     }
 
 }

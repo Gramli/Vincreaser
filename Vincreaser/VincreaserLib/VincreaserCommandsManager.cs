@@ -28,24 +28,24 @@ namespace VincreaserLib
         {
             _commandsMap = new Dictionary<string, Func<IVincreaserCommand>>
             {
-                { "-exclude", excludeCommand },
-                { "-path", pathCommand },
-                { "-type", typeCommand },
-                { "-increase", increaseCommand },
-                { "-set", setCommand }
+                { "exclude", excludeCommand },
+                { "path", pathCommand },
+                { "type", typeCommand },
+                { "increase", increaseCommand },
+                { "set", setCommand }
             };
         }
 
         public IVincreaserCommand GetCommand(string args)
         {
-            if (args is null)
+            if (string.IsNullOrEmpty(args))
             {
                 throw new UnknownCommand($"Can't retrieve command from null args.");
             }
 
             var indexOfFirstSpace = args.IndexOf(" ", StringComparison.Ordinal);
             var name = args.Substring(0, indexOfFirstSpace);
-            var commandArgs = args.Substring(indexOfFirstSpace, args.Length);
+            var commandArgs = args.Substring(indexOfFirstSpace, args.Length-indexOfFirstSpace);
             var commandInitFunc = _commandsMap[name] ?? throw new UnknownCommand($"Uknown command name {name}.");
             var vincreaserCommand = commandInitFunc();
             vincreaserCommand.Parse(commandArgs);
