@@ -30,7 +30,14 @@ namespace Vincreaser.NUnitTests
         public void IncreaseMajor_Versiongo_IncreaseThrow()
         {
             var command = new[] { "-increase  -type version.go -path Assests\version.go" };
-            Assert.Throws<UnknownCommand>(() => _vincreaser.Run(command));
+            _vincreaser.Run(command);
+        }
+
+        [Test]
+        public void IncreaseMajor_Versiongo()
+        {
+            var command = new[] { "-increase major -type version.go -path Assests\version.go" };
+            _vincreaser.Run(command);
         }
     }
 }
