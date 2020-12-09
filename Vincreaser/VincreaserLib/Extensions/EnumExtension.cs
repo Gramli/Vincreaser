@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VincreaserLib.Attributes;
 
 namespace VincreaserLib.Extensions
@@ -11,7 +9,8 @@ namespace VincreaserLib.Extensions
         public static string GetVersionFileType(this VersionFileType versionFileType)
         {
             var type = versionFileType.GetType();
-            var attribute = (TypeAttribute)type.GetCustomAttributes(true).Single(i => i is TypeAttribute);
+            var memberInfo = type.GetMember(versionFileType.ToString()).First();
+            var attribute = (TypeAttribute)memberInfo.GetCustomAttributes(typeof(TypeAttribute), false).Single();
             return attribute.Name;
         }
 

@@ -21,12 +21,12 @@ namespace VincreaserLib.VincreaserCommands
         {
             var versions = command.SplitAndRemoveSpaces(' ');
 
-            if (versions.Length != 2)
+            if (versions.Length != 1)
             {
                 throw new UnknownCommand($"You do not specify which part of version want to increase");
             }
 
-            var type = versions[1];
+            var type = versions[0];
 
             switch (type)
             {

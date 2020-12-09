@@ -29,12 +29,12 @@ namespace VincreaserLib.VincreaserCommands
         {
             var setSplit = command.SplitAndRemoveSpaces(' ');
 
-            if (setSplit.Length != 2)
+            if (setSplit.Length != 1)
             {
                 throw new PathException($"Something missing in {Name} command.");
             }
 
-            _type = setSplit[1];
+            _type = setSplit[0];
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     public interface IVincreaser
     {
-        void Run(string[] args);
+        string[] Run(string[] args);
     }
 }

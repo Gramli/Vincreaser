@@ -20,12 +20,12 @@ namespace VincreaserLib.VincreaserCommands
         {
             var setSplit = command.SplitAndRemoveSpaces(' ');
 
-            if (setSplit.Length != 2)
+            if (setSplit.Length != 1)
             {
                 throw new PathException($"Something missing in {Name} command.");
             }
 
-            _path = setSplit[1];
+            _path = setSplit[0];
         }
 
         public string[] GetPaths(IVersionFile versionFile)
