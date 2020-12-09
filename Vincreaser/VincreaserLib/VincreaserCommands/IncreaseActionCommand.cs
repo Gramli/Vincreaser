@@ -1,5 +1,6 @@
 ﻿using System;
 using VincreaserLib.Exceptions;
+using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VincreaserCommands
 {
@@ -18,7 +19,7 @@ namespace VincreaserLib.VincreaserCommands
 
         public void Parse(string command)
         {
-            var versions = command.Split(" ");
+            var versions = command.SplitAndRemoveSpaces(' ');
 
             if (versions.Length != 2)
             {

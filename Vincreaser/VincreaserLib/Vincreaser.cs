@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using VincreaserLib.Exceptions;
+using VincreaserLib.Extensions;
 using VincreaserLib.VincreaserCommands;
 
 namespace VincreaserLib
@@ -23,7 +24,7 @@ namespace VincreaserLib
 
             foreach (var arg in args)
             {
-                var commands = arg.Split("-").Where(i => !string.IsNullOrEmpty(i));
+                var commands = arg.SplitAndRemoveSpaces('-');
 
                 var actionCommands = commands.Select(command => _commandsManager.GetCommand(command)).ToList();
 

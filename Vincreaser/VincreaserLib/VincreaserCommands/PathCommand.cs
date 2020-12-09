@@ -1,4 +1,5 @@
 ﻿using VincreaserLib.Exceptions;
+using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VincreaserCommands
 {
@@ -17,7 +18,7 @@ namespace VincreaserLib.VincreaserCommands
 
         public void Parse(string command)
         {
-            var setSplit = command.Split(" ");
+            var setSplit = command.SplitAndRemoveSpaces(' ');
 
             if (setSplit.Length != 2)
             {

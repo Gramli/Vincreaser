@@ -15,7 +15,7 @@ namespace Vincreaser.NUnitTests
             var container = new VincreaserLibContainer();
 
             var vincreaserContainer = container.Build();
-            using var scope = vincreaserContainer.BeginLifetimeScope();
+            var scope = vincreaserContainer.BeginLifetimeScope();
             _vincreaser = scope.Resolve<IVincreaser>();
         }
 

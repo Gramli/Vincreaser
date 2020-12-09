@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace VincreaserLib.Extensions
@@ -31,6 +33,11 @@ namespace VincreaserLib.Extensions
             }
 
             throw new Exception($"Missing left{left} or right{right} argument in value{value}.");
+        }
+
+        public static string[] SplitAndRemoveSpaces(this string value, char separator)
+        {
+            return value.Split(separator).Where(i => !string.IsNullOrEmpty(i)).ToArray();
         }
     }
 }
