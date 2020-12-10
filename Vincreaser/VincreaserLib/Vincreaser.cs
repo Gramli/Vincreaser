@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VincreaserLib.Exceptions;
 using VincreaserLib.Extensions;
@@ -15,12 +16,14 @@ namespace VincreaserLib
             _commandsManager = commandsManager;
         }
 
-        public void Run(params string[] args)
+        public string[] Run(params string[] args)
         {
             if (!args.Any() || args is null)
             {
                 throw new UnknownCommand("Run arguments are empty or null");
             }
+
+            var result = new List<string>(args.Length);
 
             foreach (var arg in args)
             {
@@ -43,10 +46,12 @@ namespace VincreaserLib
                 {
                     if (exclude?.Contains(path) ?? true)
                     {
-                        actionCommand.Run(versionFile, path);
+                        result.Add(actionCommand.Run(versionFile, path));
                     }
                 }
             }
+
+            return result.ToArray();
         }
     }
 }

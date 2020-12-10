@@ -20,18 +20,18 @@ namespace VincreaserLib.VincreaserCommands
         {
             var setSplit = command.SplitAndRemoveSpaces(' ');
 
-            if (setSplit.Length != 2)
+            if (setSplit.Length != 1)
             {
                 throw new UnknownCommand($"Something missing in {Name} command.");
             }
 
-            _version = setSplit[1];
+            _version = setSplit[0];
 
         }
 
-        public void Run(IVersionFile versionFile, string path)
+        public string Run(IVersionFile versionFile, string path)
         {
-            _versionChanger.SetVersion(_version, versionFile, path);
+            return _versionChanger.SetVersion(_version, versionFile, path);
         }
     }
 }

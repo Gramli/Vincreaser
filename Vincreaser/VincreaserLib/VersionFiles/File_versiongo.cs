@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VersionFiles
 {
@@ -13,6 +14,7 @@ namespace VincreaserLib.VersionFiles
         private readonly IDirectoryBrowser _directoryBrowser;
 
         public VersionFileType Type => VersionFileType.versiongo;
+
         public File_versiongo(IDirectoryBrowser directoryBrowser)
         {
             _directoryBrowser = directoryBrowser;
@@ -25,8 +27,9 @@ namespace VincreaserLib.VersionFiles
         public void WriteAssemblyVersion(string version, string path)
         {
             var lines = new List<string>();
-            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.Read);
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var textReader = new StreamReader(fileStream);
+
             while (true)
             {
                 var line = textReader.ReadLine();
@@ -38,13 +41,14 @@ namespace VincreaserLib.VersionFiles
                 if (line.Contains("version"))
                 {
                     var oldVersion = ExtractVersion(line);
-                    line = line.Replace(oldVersion, version);
+                    line = line.Replace($"\"{oldVersion}\"", $"\"{version}\"", StringComparison.Ordinal);
                     lines.Add(line);
                     continue;
                 }
 
                 lines.Add(line);
             }
+
 
             if (lines.Count == 0)
             {
@@ -80,8 +84,8 @@ namespace VincreaserLib.VersionFiles
 
         public string ExtractVersion(string line)
         {
-            var indexOfEquation = line.IndexOf("=", StringComparison.Ordinal);
-            return line.Substring(indexOfEquation, line.Length - indexOfEquation);
+            var indexOfEquation = line.IndexOf("=", StringComparison.Ordinal) + 1;
+            return line.Substring(indexOfEquation, line.Length - indexOfEquation).ReplaceQuotesAndBackslashes();
         }
 
         public void Init(string name, string directory)

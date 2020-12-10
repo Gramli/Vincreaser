@@ -10,7 +10,7 @@ namespace VincreaserLib.VincreaserCommands
 
         private IVersionChanger _versionChanger;
 
-        private Action<IVersionFile, string> _runAction;
+        private Func<IVersionFile, string, string> _runAction;
 
         public IncreaseActionCommand(IVersionChanger versionChanger)
         {
@@ -43,9 +43,9 @@ namespace VincreaserLib.VincreaserCommands
             }
         }
 
-        public void Run(IVersionFile versionFile, string filePaths)
+        public string Run(IVersionFile versionFile, string filePaths)
         {
-            _runAction(versionFile, filePaths);
+            return _runAction(versionFile, filePaths);
         }
     }
 }

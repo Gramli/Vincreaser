@@ -16,4 +16,10 @@
     <ProjectReference Include="..\VincreaserLib\VincreaserLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\version.go">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

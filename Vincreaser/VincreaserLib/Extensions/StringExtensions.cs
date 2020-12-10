@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -38,6 +37,11 @@ namespace VincreaserLib.Extensions
         public static string[] SplitAndRemoveSpaces(this string value, char separator)
         {
             return value.Split(separator).Where(i => !string.IsNullOrEmpty(i)).ToArray();
+        }
+
+        public static string ReplaceQuotesAndBackslashes(this string value)
+        {
+            return value.Replace("\\", "").Replace("\"","").Replace(" ","");
         }
     }
 }

@@ -2,11 +2,11 @@
 {
     public interface IVersionChanger
     {
-        void SetVersion(string version, IVersionFile versionFile, string file);
-        void IncreaseMajor(IVersionFile versionFile, string file);
-        void IncreaseMinor( IVersionFile versionFile, string file);
-        void IncreaseBuild(IVersionFile versionFile, string file);
-        void IncreaseRevision(IVersionFile versionFile, string file);
-        void Init(IVersionFile versionFile, string file);
+        string SetVersion(string version, IVersionFile versionFile, string file);
+        string IncreaseMajor(IVersionFile versionFile, string file);
+        string IncreaseMinor( IVersionFile versionFile, string file);
+        string IncreaseBuild(IVersionFile versionFile, string file);
+        string IncreaseRevision(IVersionFile versionFile, string file);
+        string Init(IVersionFile versionFile, string file);
     }
 }
