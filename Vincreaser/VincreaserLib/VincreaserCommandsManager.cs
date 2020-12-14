@@ -14,9 +14,10 @@ namespace VincreaserLib
             Func<IPathCommand> pathCommand,
             Func<ITypeCommand> typeCommand,
             Func<IIncreaseActionCommand> increaseCommand,
+            Func<IGetCommand> getCommand,
             Func<ISetActionCommand> setCommand)
         {
-            InicializeCommandsMap(excludeCommand, pathCommand, typeCommand, increaseCommand, setCommand);
+            InicializeCommandsMap(excludeCommand, pathCommand, typeCommand, increaseCommand, getCommand, setCommand);
         }
 
         private void InicializeCommandsMap(
@@ -24,6 +25,7 @@ namespace VincreaserLib
             Func<IPathCommand> pathCommand,
             Func<ITypeCommand> typeCommand,
             Func<IIncreaseActionCommand> increaseCommand,
+            Func<IGetCommand> getCommand,
             Func<ISetActionCommand> setCommand)
         {
             _commandsMap = new Dictionary<string, Func<IVincreaserCommand>>
@@ -32,7 +34,8 @@ namespace VincreaserLib
                 { "path", pathCommand },
                 { "type", typeCommand },
                 { "increase", increaseCommand },
-                { "set", setCommand }
+                { "set", setCommand },
+                { "get", getCommand }
             };
         }
 
@@ -45,7 +48,7 @@ namespace VincreaserLib
 
             var indexOfFirstSpace = args.IndexOf(" ", StringComparison.Ordinal);
             var name = args.Substring(0, indexOfFirstSpace);
-            var commandArgs = args.Substring(indexOfFirstSpace, args.Length-indexOfFirstSpace);
+            var commandArgs = args.Substring(indexOfFirstSpace, args.Length - indexOfFirstSpace);
             var commandInitFunc = _commandsMap[name] ?? throw new UnknownCommand($"Uknown command name {name}.");
             var vincreaserCommand = commandInitFunc();
             vincreaserCommand.Parse(commandArgs);

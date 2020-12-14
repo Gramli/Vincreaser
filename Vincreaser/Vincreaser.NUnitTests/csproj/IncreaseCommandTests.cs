@@ -2,17 +2,16 @@ using NUnit.Framework;
 using System;
 using VincreaserLib.Exceptions;
 
-namespace Vincreaser.NUnitTests.versiongo
+namespace Vincreaser.NUnitTests.csproj
 {
     public class IncreaseCommandTests : IncreaseCommandBase
     {
-        protected override string path => "Assets\\version.go";
-
-        protected override string type => "version.go";
+        protected override string path => "..\\..\\..\\Assets\\TestNetCoreSol";
+        protected override string type => ".csproj";
 
         [Test]
         [Order(1)]
-        public void IncreaseMajor_Versiongo_PathThrow()
+        public void IncreaseMajor_csproj_PathThrow()
         {
             var command = new[] { $"-increase major -type {type} -path someUsdadas" };
             Assert.Throws<PathException>(() => _vincreaser.Run(command));
@@ -20,7 +19,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(2)]
-        public void IncreaseMajor_Versiongo_IncreaseThrow()
+        public void IncreaseMajor_csproj_IncreaseThrow()
         {
             var command = new[] { $"-increase -type {type} -path {path}" };
             Assert.Throws<UnknownCommand>(() => _vincreaser.Run(command));
@@ -28,7 +27,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(3)]
-        public void IncreaseMajor_Versiongo()
+        public void IncreaseMajor_csproj()
         {
             var actualVersion = Get();
             var expected = new Version(actualVersion.Major +1, actualVersion.Minor, actualVersion.Build, actualVersion.Revision);
@@ -39,7 +38,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(4)]
-        public void IncreaseMinor_Versiongo()
+        public void IncreaseMinor_csproj()
         {
             var actualVersion = Get();
             var expected = new Version(actualVersion.Major, actualVersion.Minor+1, actualVersion.Build, actualVersion.Revision);
@@ -50,7 +49,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(5)]
-        public void IncreaseRevision_Versiongo()
+        public void IncreaseRevision_csproj()
         {
             var actualVersion = Get();
             var expected = new Version(actualVersion.Major, actualVersion.Minor, actualVersion.Build, actualVersion.Revision+1);
@@ -61,7 +60,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(6)]
-        public void IncreaseBuild_Versiongo()
+        public void IncreaseBuild_csproj()
         {
             var actualVersion = Get();
             var expected = new Version(actualVersion.Major, actualVersion.Minor, actualVersion.Build + 1, actualVersion.Revision);

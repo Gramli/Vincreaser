@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Assets\TestAssemblyInfoSol\**" />
+    <Compile Remove="Assets\TestNetCoreSol\**" />
+    <EmbeddedResource Remove="Assets\TestAssemblyInfoSol\**" />
+    <EmbeddedResource Remove="Assets\TestNetCoreSol\**" />
+    <None Remove="Assets\TestAssemblyInfoSol\**" />
+    <None Remove="Assets\TestNetCoreSol\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />

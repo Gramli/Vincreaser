@@ -38,7 +38,7 @@ namespace VincreaserLib.VersionFiles
                     break;
                 }
 
-                if (line.Contains("version"))
+                if (IsVersionLine(line))
                 {
                     var oldVersion = ExtractVersion(line);
                     line = line.Replace($"\"{oldVersion}\"", $"\"{version}\"", StringComparison.Ordinal);
@@ -71,7 +71,7 @@ namespace VincreaserLib.VersionFiles
                     break;
                 }
 
-                if (line.Contains("version"))
+                if (IsVersionLine(line))
                 {
                     result = ExtractVersion(line);
                     break;
@@ -119,6 +119,11 @@ namespace VincreaserLib.VersionFiles
             process.OutputDataReceived += (object sender, DataReceivedEventArgs e) => { result += e.Data; };
 
             return result;
+        }
+
+        private bool IsVersionLine(string line)
+        {
+            return line.StartsWith("var version =");
         }
     }
 }

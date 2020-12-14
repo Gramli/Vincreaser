@@ -38,6 +38,7 @@ namespace VincreaserLib
             _containerBuilder.RegisterType<PathCommand>().As<IPathCommand>();
             _containerBuilder.RegisterType<SetActionCommand>().As<ISetActionCommand>();
             _containerBuilder.RegisterType<TypeCommand>().As<ITypeCommand>();
+            _containerBuilder.RegisterType<GetCommand>().As<IGetCommand>();
         }
 
         private void RegisterVersionFiles()

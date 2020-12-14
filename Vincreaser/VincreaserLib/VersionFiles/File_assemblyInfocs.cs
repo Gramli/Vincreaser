@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VersionFiles
 {
@@ -25,7 +26,7 @@ namespace VincreaserLib.VersionFiles
         public void WriteAssemblyVersion(string version, string path)
         {
             var lines = new List<string>();
-            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Write, FileShare.Read);
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var textReader = new StreamReader(fileStream);
             while (true)
             {
@@ -35,7 +36,7 @@ namespace VincreaserLib.VersionFiles
                     break;
                 }
 
-                if (line.Contains("AssemblyVersion"))
+                if (IsVersionLine(line))
                 {
                     var oldVersion = ExtractVersion(line);
                     line = line.Replace(oldVersion, version);
@@ -57,7 +58,7 @@ namespace VincreaserLib.VersionFiles
         public string GetAssemblyVersion(string path)
         {
             var result = string.Empty;
-            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             using var textReader = new StreamReader(fileStream);
             while (true)
             {
@@ -67,7 +68,7 @@ namespace VincreaserLib.VersionFiles
                     break;
                 }
 
-                if (line.Contains("AssemblyVersion"))
+                if (IsVersionLine(line))
                 {
                     result = ExtractVersion(line);
                     break;
@@ -79,10 +80,9 @@ namespace VincreaserLib.VersionFiles
 
         public string ExtractVersion(string line)
         {
-            var leftBracketIndex = line.IndexOf(")", StringComparison.Ordinal);
+            var leftBracketIndex = line.IndexOf("(", StringComparison.Ordinal) +1 ;
             var rightBracketIndex = line.IndexOf(")", StringComparison.Ordinal);
-
-            return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex);
+            return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex).ReplaceQuotesAndBackslashes();
         }
 
         public void Init(string name, string directory)
@@ -91,7 +91,13 @@ namespace VincreaserLib.VersionFiles
             using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
             using var streamWriter = new StreamWriter(fileStream);
             streamWriter.WriteLine($"[assembly: AssemblyTitle(\"{name}\")]");
+            streamWriter.WriteLine($"[assembly: Guid(\"{Guid.NewGuid()}\")]");
             streamWriter.WriteLine($"[assembly: AssemblyVersion(\"1.0.0.0\")]");
+        }
+
+        private bool IsVersionLine(string line)
+        {
+            return line.StartsWith("[assembly: AssemblyVersion");
         }
     }
 }
