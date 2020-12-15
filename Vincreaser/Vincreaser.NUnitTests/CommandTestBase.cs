@@ -6,7 +6,7 @@ using VincreaserLib;
 
 namespace Vincreaser.NUnitTests
 {
-    public abstract class IncreaseCommandBase
+    public abstract class CommandTestBase
     {
         protected IVincreaser _vincreaser;
 

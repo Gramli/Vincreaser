@@ -1,4 +1,5 @@
-﻿using VincreaserLib.Exceptions;
+﻿using System.Linq;
+using VincreaserLib.Exceptions;
 using VincreaserLib.Extensions;
 
 namespace VincreaserLib.VincreaserCommands
@@ -31,9 +32,15 @@ namespace VincreaserLib.VincreaserCommands
         public string[] GetPaths(IVersionFile versionFile)
         {
             if (_directoryBrowser.IsDirectory(_path))
-                return versionFile.GetVersionFiles(_path);
+            {
+                var files = versionFile.GetVersionFiles(_path);
+                return files.Any() ? files : new[] { _path};
+            }
+
             if (_directoryBrowser.IsFile(_path))
-                return new[] { _path };
+            {
+                return new[] {_path};
+            }
 
             throw new PathException($"Can't recognize path: {_path}");
         }

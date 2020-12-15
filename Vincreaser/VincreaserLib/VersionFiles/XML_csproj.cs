@@ -51,7 +51,7 @@ namespace VincreaserLib.VersionFiles
         {
             return elementValue;
         }
-        public void Init(string name, string directory)
+        public string Init(string directory, string name)
         {
             var file = _directoryBrowser.GetFilesByExtension(directory, _versionFileExtension, null)
                 .Single(item=> Path.GetFileNameWithoutExtension(item).Equals(name));
@@ -78,6 +78,8 @@ namespace VincreaserLib.VersionFiles
 
             assemblyVersionElement.Value = "1.0.0.0";
             File.WriteAllText(file, projectElement.ToString());
+
+            return file;
         }
     }
 }

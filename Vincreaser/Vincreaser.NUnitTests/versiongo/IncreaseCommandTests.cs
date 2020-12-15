@@ -4,7 +4,7 @@ using VincreaserLib.Exceptions;
 
 namespace Vincreaser.NUnitTests.versiongo
 {
-    public class IncreaseCommandTests : IncreaseCommandBase
+    public class IncreaseCommandTests : CommandTestBase
     {
         protected override string path => "Assets\\version.go";
 

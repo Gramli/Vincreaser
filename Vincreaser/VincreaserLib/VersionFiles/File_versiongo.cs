@@ -88,7 +88,7 @@ namespace VincreaserLib.VersionFiles
             return line.Substring(indexOfEquation, line.Length - indexOfEquation).ReplaceQuotesAndBackslashes();
         }
 
-        public void Init(string name, string directory)
+        public string Init(string directory, string name)
         {
             var path = Path.Combine(directory, _versionFile);
             using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -98,6 +98,8 @@ namespace VincreaserLib.VersionFiles
             streamWriter.WriteLine($"var version = \"1.0.0.0\"");
             streamWriter.WriteLine($"var goVersion = \"{GetGolangVersion()}\"");
             streamWriter.WriteLine($"var changeDate = \"{DateTime.Now}\"");
+
+            return path;
         }
 
         private string GetGolangVersion()

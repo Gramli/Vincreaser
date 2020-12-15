@@ -4,7 +4,7 @@ using VincreaserLib.Exceptions;
 
 namespace Vincreaser.NUnitTests.csproj
 {
-    public class IncreaseCommandTests : IncreaseCommandBase
+    public class IncreaseCommandTests : CommandTestBase
     {
         protected override string path => "..\\..\\..\\Assets\\TestNetCoreSol";
         protected override string type => ".csproj";

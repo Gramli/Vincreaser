@@ -2,9 +2,9 @@ using NUnit.Framework;
 using System;
 using VincreaserLib.Exceptions;
 
-namespace Vincreaser.NUnitTests.assemblyinfo
+namespace Vincreaser.NUnitTests.assemblyinfocs
 {
-    public class IncreaseCommandTests : IncreaseCommandBase
+    public class IncreaseCommandTests : CommandTestBase
     {
         protected override string path => "..\\..\\..\\Assets\\TestAssemblyInfoSol";
 

@@ -14,10 +14,11 @@ namespace VincreaserLib
             Func<IPathCommand> pathCommand,
             Func<ITypeCommand> typeCommand,
             Func<IIncreaseActionCommand> increaseCommand,
-            Func<IGetCommand> getCommand,
-            Func<ISetActionCommand> setCommand)
+            Func<IGetActionCommand> getCommand,
+            Func<ISetActionCommand> setCommand,
+            Func<IInitActionCommand> initCommand)
         {
-            InicializeCommandsMap(excludeCommand, pathCommand, typeCommand, increaseCommand, getCommand, setCommand);
+            InicializeCommandsMap(excludeCommand, pathCommand, typeCommand, increaseCommand, getCommand, setCommand, initCommand);
         }
 
         private void InicializeCommandsMap(
@@ -25,8 +26,9 @@ namespace VincreaserLib
             Func<IPathCommand> pathCommand,
             Func<ITypeCommand> typeCommand,
             Func<IIncreaseActionCommand> increaseCommand,
-            Func<IGetCommand> getCommand,
-            Func<ISetActionCommand> setCommand)
+            Func<IGetActionCommand> getCommand,
+            Func<ISetActionCommand> setCommand,
+            Func<IInitActionCommand> initCommand)
         {
             _commandsMap = new Dictionary<string, Func<IVincreaserCommand>>
             {
@@ -35,7 +37,8 @@ namespace VincreaserLib
                 { "type", typeCommand },
                 { "increase", increaseCommand },
                 { "set", setCommand },
-                { "get", getCommand }
+                { "get", getCommand },
+                { "init",  initCommand}
             };
         }
 

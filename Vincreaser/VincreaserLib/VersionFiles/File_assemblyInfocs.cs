@@ -85,7 +85,7 @@ namespace VincreaserLib.VersionFiles
             return line.Substring(leftBracketIndex, rightBracketIndex - leftBracketIndex).ReplaceQuotesAndBackslashes();
         }
 
-        public void Init(string name, string directory)
+        public string Init(string directory, string name)
         {
             var path = Path.Combine(directory, _versionFile);
             using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
@@ -93,6 +93,8 @@ namespace VincreaserLib.VersionFiles
             streamWriter.WriteLine($"[assembly: AssemblyTitle(\"{name}\")]");
             streamWriter.WriteLine($"[assembly: Guid(\"{Guid.NewGuid()}\")]");
             streamWriter.WriteLine($"[assembly: AssemblyVersion(\"1.0.0.0\")]");
+
+            return path;
         }
 
         private bool IsVersionLine(string line)

@@ -1,6 +1,6 @@
 ﻿namespace VincreaserLib.VincreaserCommands
 {
-    internal class GetCommand : IGetCommand
+    internal class GetCommand : IGetActionCommand
     {
         public string Name => "-get";
 

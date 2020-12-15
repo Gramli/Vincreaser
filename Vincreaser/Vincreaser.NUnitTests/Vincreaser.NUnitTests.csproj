@@ -7,10 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Assets\TestAssembleInfoDir\**" />
     <Compile Remove="Assets\TestAssemblyInfoSol\**" />
     <Compile Remove="Assets\TestNetCoreSol\**" />
+    <EmbeddedResource Remove="Assets\TestAssembleInfoDir\**" />
     <EmbeddedResource Remove="Assets\TestAssemblyInfoSol\**" />
     <EmbeddedResource Remove="Assets\TestNetCoreSol\**" />
+    <None Remove="Assets\TestAssembleInfoDir\**" />
     <None Remove="Assets\TestAssemblyInfoSol\**" />
     <None Remove="Assets\TestNetCoreSol\**" />
   </ItemGroup>
