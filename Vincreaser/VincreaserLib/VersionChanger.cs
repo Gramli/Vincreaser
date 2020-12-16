@@ -6,17 +6,17 @@ namespace VincreaserLib.VersionChangers
     {
         public string IncreaseMajor(IVersionFile versionFile, string file)
         {
-            return Increase(versionFile, file, (version) => new Version(version.Major + 1, version.Minor, version.Build, version.Revision));
+            return Increase(versionFile, file, (version) => new Version(version.Major + 1, 0, 0, 0));
         }
 
         public string IncreaseMinor(IVersionFile versionFile, string file)
         {
-            return Increase(versionFile, file, (version) => new Version(version.Major, version.Minor + 1, version.Build, version.Revision));
+            return Increase(versionFile, file, (version) => new Version(version.Major, version.Minor + 1, 0, 0));
         }
 
         public string IncreaseBuild(IVersionFile versionFile, string file)
         {
-            return Increase(versionFile, file, (version) => new Version(version.Major, version.Minor, version.Build + 1, version.Revision));
+            return Increase(versionFile, file, (version) => new Version(version.Major, version.Minor, version.Build + 1, 0));
         }
 
         public string IncreaseRevision(IVersionFile versionFile, string file)

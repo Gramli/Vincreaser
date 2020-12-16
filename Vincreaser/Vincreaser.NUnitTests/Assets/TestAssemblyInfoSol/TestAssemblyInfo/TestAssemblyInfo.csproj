@@ -50,4 +50,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"C:\Program Files (x86)\Vincreaser\VincreaserApp.exe" "-type assemblyInfo.cs -increase build -path E:\GitHub\Vincreaser\Vincreaser\Vincreaser.NUnitTests\Assets\TestAssemblyInfoSol"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

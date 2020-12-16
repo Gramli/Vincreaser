@@ -31,7 +31,7 @@ namespace Vincreaser.NUnitTests.assemblyinfocs
         public void IncreaseMajor_Assemblyinfo()
         {
             var actualVersion = Get();
-            var expected = new Version(actualVersion.Major + 1, actualVersion.Minor, actualVersion.Build, actualVersion.Revision);
+            var expected = new Version(actualVersion.Major + 1, 0, 0, 0);
 
             var command = new[] { $"-increase major -type {type} -path {path}" };
             DoAction(command, expected);
@@ -42,7 +42,7 @@ namespace Vincreaser.NUnitTests.assemblyinfocs
         public void IncreaseMinor_Assemblyinfo()
         {
             var actualVersion = Get();
-            var expected = new Version(actualVersion.Major, actualVersion.Minor + 1, actualVersion.Build, actualVersion.Revision);
+            var expected = new Version(actualVersion.Major, actualVersion.Minor + 1, 0, 0);
 
             var command = new[] { $"-increase minor -type {type} -path {path}" };
             DoAction(command, expected);
@@ -64,7 +64,7 @@ namespace Vincreaser.NUnitTests.assemblyinfocs
         public void IncreaseBuild_Assemblyinfo()
         {
             var actualVersion = Get();
-            var expected = new Version(actualVersion.Major, actualVersion.Minor, actualVersion.Build +1 , actualVersion.Revision);
+            var expected = new Version(actualVersion.Major, actualVersion.Minor, actualVersion.Build +1 , 0);
 
             var command = new[] { $"-increase build -type {type} -path {path}" };
             DoAction(command, expected);

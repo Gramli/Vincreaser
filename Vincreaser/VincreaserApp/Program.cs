@@ -9,28 +9,35 @@ namespace VincreaserApp
     {
         static void Main(string[] args)
         {
-            var endingCommands = new[] { "close", "end", "c" };
-            var container = new VincreaserLibContainer();
-
-            var vincreaserContainer = container.Build();
-            using var scope = vincreaserContainer.BeginLifetimeScope();
-            var vincreaser = scope.Resolve<IVincreaser>();
-
-            if (args is null || !args.Any())
+            try
             {
-                while (true)
+                var endingCommands = new[] { "close", "end", "c" };
+                var container = new VincreaserLibContainer();
+
+                var vincreaserContainer = container.Build();
+                using var scope = vincreaserContainer.BeginLifetimeScope();
+                var vincreaser = scope.Resolve<IVincreaser>();
+
+                if (args is null || !args.Any())
                 {
-                    var line = Console.ReadLine();
-                    if (endingCommands.Any(end => end == line))
+                    while (true)
                     {
-                        return;
+                        var line = Console.ReadLine();
+                        if (endingCommands.Any(end => end == line))
+                        {
+                            return;
+                        }
+                        vincreaser.Run(new[] { line });
+
                     }
-                    vincreaser.Run(new[] { line });
-
                 }
-            }
 
-            vincreaser.Run(args);
+                vincreaser.Run(args);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

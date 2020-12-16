@@ -2,6 +2,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyVersion>4.3.4.2</AssemblyVersion>
+    <AssemblyVersion>6.1.1.0</AssemblyVersion>
   </PropertyGroup>
 </Project>
