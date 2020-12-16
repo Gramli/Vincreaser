@@ -7,6 +7,5 @@
         string IncreaseMinor( IVersionFile versionFile, string file);
         string IncreaseBuild(IVersionFile versionFile, string file);
         string IncreaseRevision(IVersionFile versionFile, string file);
-        string Init(IVersionFile versionFile, string file);
     }
 }

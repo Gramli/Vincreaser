@@ -39,10 +39,5 @@ namespace VincreaserLib.VersionChangers
             versionFile.WriteAssemblyVersion(newVersion, file);
             return newVersion;
         }
-
-        public string Init(IVersionFile versionFile, string file)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
