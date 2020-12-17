@@ -53,8 +53,12 @@ namespace VincreaserLib.VersionFiles
         }
         public string Init(string directory, string name)
         {
-            var file = _directoryBrowser.GetFilesByExtension(directory, _versionFileExtension, null)
-                .Single(item=> Path.GetFileNameWithoutExtension(item).Equals(name));
+            var file = directory;
+            if (_directoryBrowser.IsDirectory(directory))
+            {
+                file = _directoryBrowser.GetFilesByExtension(directory, _versionFileExtension, null)
+                .Single(item => Path.GetFileNameWithoutExtension(item).Equals(name));
+            }
 
             var projectElement = XElement.Load(file);
             if(projectElement is null)
@@ -73,7 +77,8 @@ namespace VincreaserLib.VersionFiles
             var assemblyVersionElement = propertyGroupElement.Element(_assemblyVersionElementName);
             if(assemblyVersionElement is null)
             {
-                propertyGroupElement.Add(new XElement(_assemblyVersionElementName));
+                assemblyVersionElement = new XElement(_assemblyVersionElementName);
+                propertyGroupElement.Add(assemblyVersionElement);
             }
 
             assemblyVersionElement.Value = "1.0.0.0";

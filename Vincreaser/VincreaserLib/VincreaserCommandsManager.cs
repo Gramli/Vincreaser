@@ -50,6 +50,12 @@ namespace VincreaserLib
             }
 
             var indexOfFirstSpace = args.IndexOf(" ", StringComparison.Ordinal);
+
+            if(indexOfFirstSpace == -1)
+            {
+                throw new UnknownCommand($"Can't space between args.");
+            }
+
             var name = args.Substring(0, indexOfFirstSpace);
             var commandArgs = args.Substring(indexOfFirstSpace, args.Length - indexOfFirstSpace);
             var commandInitFunc = _commandsMap[name] ?? throw new UnknownCommand($"Uknown command name {name}.");

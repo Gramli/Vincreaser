@@ -24,8 +24,8 @@ namespace VincreaserApp
 -path directory or file (example: -path C:\git\MySolution\ -increase patch 1)
 -exclude [projectname, secondProjectName, ...] (example: -path C:\git\MySolution\ -increase patch 1 -exclude[MySecondProject])
 
--help  show information
--examples show useful information in github
+-help Show help information
+-examples show examples in Github readme
 -close, -end, -c close program by command");
             }  },
         };

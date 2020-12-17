@@ -10,6 +10,7 @@ namespace VincreaserLib
     public class Vincreaser : IVincreaser
     {
         private readonly IVincreaserCommandsManager _commandsManager;
+        private char commandSeparator = '-';
 
         public Vincreaser(IVincreaserCommandsManager commandsManager)
         {
@@ -27,7 +28,12 @@ namespace VincreaserLib
 
             foreach (var arg in args)
             {
-                var commands = arg.SplitAndRemoveSpaces('-');
+                if(!arg.Contains(commandSeparator))
+                {
+                    throw new UnknownCommand($"Command is not leeding with \"{commandSeparator}\" character");
+                }
+
+                var commands = arg.SplitAndRemoveSpaces(commandSeparator);
 
                 var actionCommands = commands.Select(command => _commandsManager.GetCommand(command)).ToList();
 

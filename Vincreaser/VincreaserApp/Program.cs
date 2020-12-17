@@ -9,15 +9,15 @@ namespace VincreaserApp
         {
             var commandManager = new CommandManager();
 
-            Console.WriteLine("Welcome to Vincreaser.");
+            Console.WriteLine("Welcome to Vincreaser.\nWrite -help command to more info or -examples to see examples.");
 
-            try
+            var endingCommands = new[] { "-close", "-end", "-c" };
+
+            if (args is null || !args.Any())
             {
-                var endingCommands = new[] { "-close", "-end", "-c" };
-
-                if (args is null || !args.Any())
+                while (true)
                 {
-                    while (true)
+                    try
                     {
                         var line = Console.ReadLine();
 
@@ -32,11 +32,11 @@ namespace VincreaserApp
                             Console.WriteLine(result);
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Exception: {ex.GetType().Name}\nMessage: {ex.Message}");
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
             }
         }
     }

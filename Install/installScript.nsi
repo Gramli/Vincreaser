@@ -17,8 +17,8 @@ SetOutPath $INSTDIR
 # create the uninstaller
 WriteUninstaller "$INSTDIR\VincreaserUninstaller.exe"
 
-CreateShortCut "$DESKTOP\Vincreaser.lnk" "$INSTDIR\Vincreaser.exe"
-CreateShortCut "$SMPROGRAMS\Vincreaser.lnk" "$INSTDIR\Vincreaser.exe"
+CreateShortCut "$DESKTOP\Vincreaser.lnk" "$INSTDIR\VincreaserApp.exe"
+CreateShortCut "$SMPROGRAMS\Vincreaser.lnk" "$INSTDIR\VincreaserApp.exe"
 
 WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Vincreaser" \
                  "DisplayName" "Vincreaser -- Console Application for project versioning"
@@ -38,7 +38,7 @@ SectionEnd
 Section "Uninstall"
  
 # Always delete uninstaller first
-Delete $INSTDIR\ScriperUninstaller.exe
+Delete $INSTDIR\VincreaserUninstaller.exe
 Delete "$DESKTOP\Vincreaser.lnk"
 Delete "$SMPROGRAMS\Vincreaser.lnk"
 DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Vincreaser"
