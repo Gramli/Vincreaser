@@ -7,7 +7,7 @@ namespace Vincreaser.NUnitTests.versiongo
 {
     public class InitCommandTests : CommandTestBase
     {
-        protected override string path => "..\\..\\..\\Assets\\TestNetCoreSol";
+        protected override string path => "..\\..\\..\\Assets\\version.go";
 
         protected override string type => "version.go";
 
