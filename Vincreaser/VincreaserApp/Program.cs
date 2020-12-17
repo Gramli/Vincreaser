@@ -1,6 +1,4 @@
 ﻿using System;
-using VincreaserLib;
-using Autofac;
 using System.Linq;
 
 namespace VincreaserApp
@@ -9,32 +7,34 @@ namespace VincreaserApp
     {
         static void Main(string[] args)
         {
+            var commandManager = new CommandManager();
+
+            Console.WriteLine("Welcome to Vincreaser.");
+
             try
             {
-                var endingCommands = new[] { "close", "end", "c" };
-                var container = new VincreaserLibContainer();
-
-                var vincreaserContainer = container.Build();
-                using var scope = vincreaserContainer.BeginLifetimeScope();
-                var vincreaser = scope.Resolve<IVincreaser>();
+                var endingCommands = new[] { "-close", "-end", "-c" };
 
                 if (args is null || !args.Any())
                 {
                     while (true)
                     {
                         var line = Console.ReadLine();
+
                         if (endingCommands.Any(end => end == line))
                         {
                             return;
                         }
-                        vincreaser.Run(new[] { line });
 
+                        var results = commandManager.Run(line);
+                        foreach (var result in results)
+                        {
+                            Console.WriteLine(result);
+                        }
                     }
                 }
-
-                vincreaser.Run(args);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
