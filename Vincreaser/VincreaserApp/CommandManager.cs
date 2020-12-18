@@ -52,5 +52,10 @@ namespace VincreaserApp
             return vincreaser.Run(new[] { arguments });
         }
 
+        public string[] Run(string[] arguments)
+        {
+            return vincreaser.Run(arguments);
+        }
+
     }
 }

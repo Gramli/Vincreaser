@@ -26,17 +26,23 @@ namespace VincreaserApp
                             return;
                         }
 
-                        var results = commandManager.Run(line);
-                        foreach (var result in results)
-                        {
-                            Console.WriteLine(result);
-                        }
+                        WriteResults(commandManager.Run(line));
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine($"Exception: {ex.GetType().Name}\nMessage: {ex.Message}");
                     }
                 }
+            }
+
+            WriteResults(commandManager.Run(args));
+        }
+
+        private static void WriteResults(string[] results)
+        {
+            foreach (var result in results)
+            {
+                Console.WriteLine(result);
             }
         }
     }
