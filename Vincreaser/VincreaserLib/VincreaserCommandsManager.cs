@@ -53,7 +53,7 @@ namespace VincreaserLib
 
             if(indexOfFirstSpace == -1)
             {
-                throw new UnknownCommand($"Can't space between args.");
+                throw new UnknownCommand($"Can't find space between args.\nArgs: {args}");
             }
 
             var name = args.Substring(0, indexOfFirstSpace);
