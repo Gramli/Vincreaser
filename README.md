@@ -65,14 +65,33 @@ You can use Vincreaser in any git hook and run it using .bat file.
 2. Add to pre-commit file without extension this code:
 ```
 #!/bin/sh
-cmd.exe /c "E:\GitHub\Vincreaser\.git\hooks\pre-commit.bat"
-git add .
+cmd.exe /c "E:\GitHub\Vincreaser\.git\hooks\pre-commit.bat" //run pre-commit.bat in cmd
+git add . //add(stage) all changes to commit
 exit 0
 ```
-Commands run .bat file, stage all edited files to commit and exit. If you want to stage only edited files you can specify file name after git add command like `git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj'`
+If you want to stage only edited files you can specify file name after git add command like `git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj'`
 3. Add to pre-commit.bat file this code:
 ```
 //first part is path to installed Vincreaser and second are arguments
 "E:\GitHub\Vincreaser\Vincreaser\VincreaserApp\bin\Debug\netcoreapp3.1\VincreaserApp.exe" "-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserApp"
 ```
-Command run Vincreaser app with argument, you can use more arguments of course.
+Command run Vincreaser app with argument, which increase build part of version to all .csproj files in E:\GitHub\Vincreaser\Vincreaser\VincreaserApp directory.
+
+**pre-push hook:**
+1. Create two files in .git/hooks directory, one without extension, second as .bat file. Both name as pre-push
+![Visual Studio ](/Images/hooks_prepush.png)
+2. Add to pre-push file without extension this code:
+```
+#!/bin/sh
+cmd.exe /c "E:\GitHub\Vincreaser\.git\hooks\pre-push.bat" //run pre-push.bat in cmd
+git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj' //add changed file by Vincreaser to commit
+git add 'Vincreaser\VincreaserLib\VincreaserLib.csproj' //add changed file by Vincreaser to commit
+git commit -m "pre-pust automatic commit for versioning" //commit changed files
+exit 0
+```
+3. Add to pre-commit.bat file this code:
+```
+//first part is path to installed Vincreaser and second are arguments
+"E:\GitHub\Vincreaser\Vincreaser\VincreaserApp\bin\Debug\netcoreapp3.1\VincreaserApp.exe" "-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserApp" "-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserLib"
+```
+Command run Vincreaser app with argument, which increase build part of version to all .csproj files in E:\GitHub\Vincreaser\Vincreaser\VincreaserApp and E:\GitHub\Vincreaser\Vincreaser\VincreaserLib directories.
