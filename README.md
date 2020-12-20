@@ -1,19 +1,50 @@
 # Vincreaser
-.NET Core console application for solution versioning. 
+.NET Core console application for solution versioning. Using commands you can init, increase, set, get version. You can use Vincrease in Visual Studio events like pre-build, post-build, pre-publish etc. or in Git hooks.
+
+ Actual version supports .csproj, assemblyInfo.cs, version.go files.
 
 ## Commands
-	*   -type (.csproj, assemblyInfo.cs, version.go)
-	*   -increase
-		* major (example: -increase major)
-		* minor (example: -increase minor)
-		* build (example: -increase build)
-		* revision (example: -increase revision)
-	*	-set version (example: -set 1.1.2.3)
-	*   -get
-	*   -path directory or file (example: -path C:\\git\MySolution\ -increase patch 1)
-	*   -exclude [projectname, secondProjectName, ...] (example: -path C:\\git\MySolution\ -increase patch 1 -exclude[MySecondProject])
 
-## Examples
+**You have to always use -type, -path and one of action commands (-increase, -set, -get, init), -exclude is not mandatory. Order of the commands is not important.**
+
+
+
+*   -type (.csproj, assemblyInfo.cs, version.go)
+*   -increase
+	* major (example: -increase major)
+	* minor (example: -increase minor)
+	* build (example: -increase build)
+	* revision (example: -increase revision)
+*	-set version (example: -set 1.1.2.3)
+*   -get
+*   -init projectname
+*   -path directory or file (example: -path C:\\git\MySolution\ -increase patch 1)
+*   -exclude [projectname, secondProjectName, ...] (example: -path C:\\git\MySolution\ -increase patch 1 -exclude[MySecondProject])
+
+### Examples
+#### -incrase
+```
+//example
+-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserApp
+```
+#### -set
+```
+//example
+-set -type version.go -path Assets\version.go
+```
+#### -get
+```
+//example
+-get -type version.go -path Assets\version.go
+```
+#### -init
+```
+//example
+-path Assets\TestAssembleInfoDir -init testingProject -type assemblyInfo.cs
+```
+
+
+## Using
 ### Visual Studio
 You can simply use Vincreaser application in VS build events:
 
@@ -28,7 +59,7 @@ And use command like this:
 ### Git hooks
 You can use Vincreaser in any git hook and run it using .bat file.
 
-** pre-commit hook: **
+**pre-commit hook:**
 1. Create two files in .git/hooks directory, one without extension, second as .bat file. Both name as pre-commit
 ![Visual Studio ](/Images/hooks.png)
 2. Add to pre-commit file without extension this code:
@@ -38,7 +69,7 @@ cmd.exe /c "E:\GitHub\Vincreaser\.git\hooks\pre-commit.bat"
 git add .
 exit 0
 ```
-Commands run .bat file, stage all edited files to commit and exit. If you want to stage only edited files you can specify file name after git add command like `git add E:\GitHub\Vincreaser\Vincreaser\VincreaserApp/VincreaserApp.csproj`
+Commands run .bat file, stage all edited files to commit and exit. If you want to stage only edited files you can specify file name after git add command like `git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj'`
 3. Add to pre-commit.bat file this code:
 ```
 //first part is path to installed Vincreaser and second are arguments
