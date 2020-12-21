@@ -1,11 +1,11 @@
 # Vincreaser
-.NET Core console application for solution versioning. Using commands you can init, increase, set, get version. You can use Vincrease in Visual Studio events like pre-build, post-build, pre-publish etc. or in Git hooks.
+.NET Core console application for solution versioning. Using commands you can init, increase, set, get project version. You can use Vincrease in Visual Studio events like pre-build, post-build, pre-publish etc. or in Git hooks.
 
  Actual version supports .csproj, assemblyInfo.cs, version.go files.
 
 ## Commands
 
-**You have to always use -type, -path and one of action commands (-increase, -set, -get, init), -exclude is not mandatory. Order of the commands is not important.**
+**You have to always use -type, -path and one of the action commands (-increase, -set, -get, init), -exclude is not mandatory. Order of the commands is not important.**
 
 
 
