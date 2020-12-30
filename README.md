@@ -3,6 +3,10 @@
 
  Actual version supports .csproj, assemblyInfo.cs, version.go files.
 
+## Download
+
+* [Windows](https://github.com/Gramli/Vincreaser/releases/download/v1.1/VincreaserInstaller.exe)
+
 ## Commands
 
 **You have to always use -type, -path and one of the action commands (-increase, -set, -get, init), -exclude is not mandatory. Order of the commands is not important.**
