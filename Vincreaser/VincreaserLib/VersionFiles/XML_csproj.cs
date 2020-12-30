@@ -60,6 +60,11 @@ namespace VincreaserLib.VersionFiles
                 .Single(item => Path.GetFileNameWithoutExtension(item).Equals(name));
             }
 
+            if(!File.Exists(file))
+            {
+                throw new FileNotFoundException(file);
+            }
+
             var projectElement = XElement.Load(file);
             if(projectElement is null)
             {
