@@ -11,37 +11,22 @@ namespace Vincreaser.NUnitTests.csproj
 
         protected override string type => ".csproj";
 
-        [SetUp]
-        public void CreateFolder()
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
-        [TearDown]
-        public void DeleteFolder()
-        {
-            Directory.Delete(path, true);
-        }
-
         [Test]
-        public void Init_Assemblyinfo_PathThrow()
+        public void Init_csproj_PathThrow()
         {
             var command = new[] { $"-init testingProject -type {type} -path someUsdadas" };
             Assert.Throws<PathException>(() => _vincreaser.Run(command));
         }
 
         [Test]
-        public void Init_assemblyInfo_ProjectNameThrow()
+        public void Init_csproj_ProjectNameThrow()
         {
             var command = new[] { $"-init -type {type} -path {path}" };
             Assert.Throws<UnknownCommand>(() => _vincreaser.Run(command));
         }
 
         [Test]
-        public void Init_assemblyInfo_Init()
+        public void Init_csproj_Init()
         {
             var command = new[] { $"-init testingProject -type {type} -path {path}" };
             var file =_vincreaser.Run(command);

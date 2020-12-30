@@ -7,24 +7,9 @@ namespace Vincreaser.NUnitTests.assemblyinfocs
 {
     public class InitCommandTests : CommandTestBase
     {
-        protected override string path => "..\\..\\..\\Assets\\TestAssembleInfoDir";
+        protected override string path => "..\\..\\..\\Assets\\TestAssemblyInfoSol";
 
         protected override string type => "assemblyInfo.cs";
-
-        [SetUp]
-        public void CreateFolder()
-        {
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
-        [TearDown]
-        public void DeleteFolder()
-        {
-            Directory.Delete(path, true);
-        }
 
         [Test]
         public void Init_Assemblyinfo_PathThrow()
@@ -41,11 +26,26 @@ namespace Vincreaser.NUnitTests.assemblyinfocs
         }
 
         [Test]
+        public void Init_assemblyInfo_IOException()
+        {
+            var command = new[] { $"-init TestAssemblyInfo -type {type} -path {path}" };
+            Assert.Throws<IOException>(() => _vincreaser.Run(command));
+        }
+
+        [Test]
         public void Init_assemblyInfo_Init()
         {
-            var command = new[] { $"-init testingProject -type {type} -path {path}" };
-            var file =_vincreaser.Run(command);
-            Assert.IsTrue(File.Exists(file.First()));
+            var newPath = $"{path}\\TestFolder";
+
+            if(Directory.Exists(newPath))
+            {
+                Directory.Delete(newPath, true);
+            }
+            Directory.CreateDirectory(newPath);
+
+            var command = new[] { $"-init TestAssemblyInfo -type {type} -path {newPath}" };
+            var result = _vincreaser.Run(command);
+            Assert.True(File.Exists(result.First()));
         }
 
     }

@@ -48,7 +48,7 @@ namespace VincreaserLib
 
         public bool IsFile(string path)
         {
-            return File.Exists(path);
+            return File.Exists(path);// || !string.IsNullOrEmpty(Path.GetExtension(path));
         }
 
         private IList<string> GetFilesInSubDirectories(string sourceDirectory, string compare, IEnumerable<string> directoriesToExclude, Func<string, string, IEnumerable<string>, IList<string>> getFilesFunc)

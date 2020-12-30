@@ -3,17 +3,17 @@ using System;
 using System.Linq;
 using VincreaserLib.Exceptions;
 
-namespace Vincreaser.NUnitTests.versiongo
+namespace Vincreaser.NUnitTests.csproj
 {
     public class SetCommandTests : CommandTestBase
     {
-        protected override string path => "..\\..\\..\\Assets\\version.go";
+        protected override string path => "..\\..\\..\\Assets\\TestNetCoreSol";
 
-        protected override string type => "version.go";
+        protected override string type => ".csproj";
 
         [Test]
         [Order(1)]
-        public void Set_Versiongo_SetThrow()
+        public void Set_csproj_SetThrow()
         {
             var command = new[] { $"-set -type {type} -path {path}" };
             Assert.Throws<UnknownCommand>(() => _vincreaser.Run(command));
@@ -21,7 +21,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(2)]
-        public void Set_Versiongo_SetThrow_Version()
+        public void Set_csproj_SetThrow_Version()
         {
             var command = new[] { $"-set abs -type {type} -path {path}" };
             Assert.Throws<ArgumentException>(() => _vincreaser.Run(command));
@@ -29,7 +29,7 @@ namespace Vincreaser.NUnitTests.versiongo
 
         [Test]
         [Order(3)]
-        public void Set_Versiongo()
+        public void Set_csproj()
         {
             var command = new[] { $"-set 0.0.0.0 -type {type} -path {path}" };
             var result = _vincreaser.Run(command);

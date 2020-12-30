@@ -6,7 +6,7 @@ namespace Vincreaser.NUnitTests.versiongo
 {
     public class IncreaseCommandTests : CommandTestBase
     {
-        protected override string path => "Assets\\version.go";
+        protected override string path => "..\\..\\..\\Assets\\version.go";
 
         protected override string type => "version.go";
 

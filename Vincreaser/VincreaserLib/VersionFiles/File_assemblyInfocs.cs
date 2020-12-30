@@ -87,8 +87,8 @@ namespace VincreaserLib.VersionFiles
 
         public string Init(string directory, string name)
         {
-            var path = Path.Combine(directory, _versionFile);
-            using var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read);
+            var path = _directoryBrowser.IsFile(directory) ? directory : Path.Combine(directory, _versionFile);
+            using var fileStream = new FileStream(path, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
             using var streamWriter = new StreamWriter(fileStream);
             streamWriter.WriteLine($"[assembly: AssemblyTitle(\"{name}\")]");
             streamWriter.WriteLine($"[assembly: Guid(\"{Guid.NewGuid()}\")]");
