@@ -88,14 +88,16 @@ Command run Vincreaser app with argument, which increase build part of version t
 ```
 #!/bin/sh
 cmd.exe /c "E:\GitHub\Vincreaser\.git\hooks\pre-push.bat" //run pre-push.bat in cmd
-git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj' //add changed file by Vincreaser to commit
-git add 'Vincreaser\VincreaserLib\VincreaserLib.csproj' //add changed file by Vincreaser to commit
-git commit -m "pre-pust automatic commit for versioning" //commit changed files
+git add 'Vincreaser\VincreaserApp\VincreaserApp.csproj' //add changed file to commit 
+git add 'Vincreaser\VincreaserLib\VincreaserLib.csproj' //add changed file to commit
+git commit -m "pre-pust automatic commit for versioning" //commit changed files with comment
 exit 0
 ```
-3. Add to pre-commit.bat file this code:
+3. Add to pre-pusht.bat file this code:
 ```
-//first part is path to installed Vincreaser and second are arguments
-"E:\GitHub\Vincreaser\Vincreaser\VincreaserApp\bin\Debug\netcoreapp3.1\VincreaserApp.exe" "-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserApp" "-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserLib"
+//first part is path to installed Vincreaser and second are arguments. This script increase build part of version for projects in VincreaserApp folder and VincreaserLib folder
+"E:\GitHub\Vincreaser\Vincreaser\VincreaserApp\bin\Debug\netcoreapp3.1\VincreaserApp.exe" 
+"-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserApp" 
+"-type .csproj -increase build -path E:\GitHub\Vincreaser\Vincreaser\VincreaserLib"
 ```
 Command run Vincreaser app with argument, which increase build part of version to all .csproj files in E:\GitHub\Vincreaser\Vincreaser\VincreaserApp and E:\GitHub\Vincreaser\Vincreaser\VincreaserLib directories.
